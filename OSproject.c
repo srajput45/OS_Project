@@ -53,6 +53,101 @@ main()
         {
             queue3();
         }
+}
+
+  void Queue1()
+         {
+            printf("\nRound Robin\n");
+         	int a,i,j,n,m,g=0,r=0,;
+            int b[10],rq[10],id[10],wt[10],tt[10],at[10],bt[10],TimeQuantum=4;
+
+            printf("enter number of processes ");
+            scanf("%d",&n);
+
+            int temp=n;
+
+            for(i=0;i<n;i++)
+            {
+                id[i]=i;
+                printf("Enter Arrival time for process P%d ",i+1);
+                scanf("%d",&at[i]);
+                printf("\nEnter Burst time for process P%d ",i+1);
+                scanf("%d",&bt[i]);
+            }
+
+            for(i=0;i<n;i++)
+            {
+                b[i]=bt[i];
+            }
+
+            int k=0;
+            while(1)
+            {
+                int d=1;
+                for(i=0;i<n;i++)
+                {
+                    if(b[i]>0)
+                    {
+                        d=0;
+                        if(b[i]>TimeQuantum)
+                        {
+                            k=k+TimeQuantum;
+                            b[i]=b[i]-TimeQuantum;
+                        }
+                        else
+                        {
+                            k=k+b[i];
+                            wt[i]=k-b[i];
+                            b[i]=0;
+                        }
+                    }
+                }
+                if(d==1)
+                {
+                    break;
+                }
+            }
+
+            for(i=0;i<n;i++)
+            {
+                if(wt[i]==0)
+                {
+                    rq[i]=id[i];
+                }
+            }
+
+            printf("Waiting time\n");
+
+            for(i=0;i<n;i++)
+            {
+                printf("P%d ",i+1);
+                printf("%d\n",wt[i]);
+            }
+
+            for(i=0;i<n;i++)
+            {
+                tt[i]=bt[i]+wt[i];
+            }
+
+            printf("Turnaround Time\n");
+
+            for(i=0;i<n;i++)
+            {
+                printf("P%d ",i+1);
+                printf("%d\n",tt[i]);
+            }
+
+            for(i=0;i<n;i++)
+            {
+                r=r+wt[i];
+                g=g+tt[i];
+            }
+
+            printf("Average Waiting Time\n");
+            printf("%f",(float)r/(float)n);
+            printf("\nAverage Turnaround Time\n");
+            printf("%f",(float)g/(float)n)
+         }
 
         void queue3()
     {
